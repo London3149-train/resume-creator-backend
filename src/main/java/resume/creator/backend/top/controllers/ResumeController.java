@@ -15,6 +15,7 @@ import resume.creator.backend.top.models.Answer;
 import resume.creator.backend.top.models.ResumeQuestion;
 import resume.creator.backend.top.models.ResumeType;
 import resume.creator.logic.models.Resume;
+import resume.creator.logic.services.ResumeService;
 
 @RestController
 @RequestMapping("resume")
@@ -33,15 +34,9 @@ public class ResumeController {
 
     @GetMapping("list")
     public ResponseEntity<List<Resume>> GetResumeTypes(int userId) {
-        // Get List objects from service
-        // Test data
-        List<Resume> createdResume = new ArrayList<Resume>();
+        ResumeService resumeService = new ResumeService();
 
-        Resume testResume = new Resume();
-        testResume.FIO = "Иванов Илья";
-        testResume.PathToFile = "./myfile.soprano";
-        testResume.PathToResumeTemplate = "./templates/mytemplate.docx";
-        createdResume.add(testResume);
+        List<Resume> createdResume = resumeService.GetListResume(userId);
 
         return ResponseEntity.ok(createdResume);
     }
